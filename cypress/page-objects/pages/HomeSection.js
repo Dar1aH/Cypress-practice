@@ -8,29 +8,33 @@ class HomeSection {
         signUpBtn: () => cy.get('button.hero-descriptor_btn')
     }
 
-    verifyHomeBtn(){
+    verifyHomeBtn() {
         this.elements.homeBtn().should('have.text', 'Home')
     }
 
-    verifyAboutBtn(){
+    verifyAboutBtn() {
         this.elements.aboutBtn().should('have.text', 'About')
     }
 
-    verifyContactsBtn(){
+    verifyContactsBtn() {
         this.elements.contactsBtn().should('have.text', 'Contacts')
     }
 
-    verifyGuestLogInBtn(){
+    verifyGuestLogInBtn() {
         this.elements.guestLogInBtn().should('be.visible').should('have.text', 'Guest log in')
     }
 
-    verifySignInBtn(){
+    verifySignInBtn() {
         this.elements.signInBtn().should('be.visible').should('have.text', 'Sign In')
     }
 
-    verifySignUpBtn(){
+    verifySignUpBtn() {
         this.elements.signUpBtn().should('be.visible').should('be.enabled')
         this.elements.signUpBtn().should('have.text', 'Sign up')
+    }
+
+    clickSignUpBtn() {
+        this.elements.signUpBtn().click()
     }
 }
 export default HomeSection
