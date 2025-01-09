@@ -5,7 +5,8 @@ class RegistrationForm {
         emailInputField: () => cy.get('#signupEmail'),
         passwordInputField: () => cy.get('#signupPassword'),
         reEnterPasswordField: () => cy.get('#signupRepeatPassword'),
-        registerBtn: () => cy.get('[type="button"].btn-primary')
+        registerBtn: () => cy.get('[type="button"].btn-primary'),
+        headerGarage: () => cy.get('h1')
     }
 
     verifyEmptyNameErrorByText(text) {
@@ -100,6 +101,11 @@ class RegistrationForm {
     }
     clickRegisterBtn() {
         this.elements.registerBtn().click()
+    }
+
+    verifySuccessfulRegistration(){
+        this.elements.headerGarage().should('have.text', 'Garage');
+        cy.url().should('contain', '/garage');
     }
 
 }

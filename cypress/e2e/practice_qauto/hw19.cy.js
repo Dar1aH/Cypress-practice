@@ -74,14 +74,16 @@ describe('Registration form test', () => {
 
     })
 
-    it('Verify successful registration with valid data', () => {
+    it.only('Verify successful registration with valid data', () => {
         registrationForm.enterName()
         registrationForm.enterLastName()
         registrationForm.enterEmail()
         registrationForm.enterPassword()
         registrationForm.reEnterPassword()
         registrationForm.clickRegisterBtn()
+        registrationForm.verifySuccessfulRegistration()
     })
 
 })
+
 
