@@ -74,7 +74,7 @@ describe('Registration form test', () => {
 
     })
 
-    it.only('Verify successful registration with valid data', () => {
+    it('Verify successful registration with valid data', () => {
         registrationForm.enterName()
         registrationForm.enterLastName()
         registrationForm.enterEmail()
