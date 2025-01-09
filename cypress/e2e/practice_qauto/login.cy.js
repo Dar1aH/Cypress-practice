@@ -66,8 +66,8 @@ describe('Login form with POM', () => {
     })
 
     it('Success Sign in with custom command', () => {
-        cy.login(Cypress.env('MAIN_USER_EMAIL'),Cypress.env('MAIN_USER_PASSWORD') );
-        
+        cy.login(Cypress.env('MAIN_USER_EMAIL'), Cypress.env('MAIN_USER_PASSWORD'));
+
         cy.get('h1').should('have.text', 'Garage');
         cy.url().should('contain', '/garage');
     })
