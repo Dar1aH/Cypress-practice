@@ -3,7 +3,7 @@ import RegistrationForm from "../../page-objects/forms/RegistrationForm";
 
 describe('Registration form test', () => {
     const homeSection = new HomeSection()
-    const registrationForm = new RegistrationForm
+    const registrationForm = new RegistrationForm()
 
     beforeEach(() => {
         cy.visit('/');
