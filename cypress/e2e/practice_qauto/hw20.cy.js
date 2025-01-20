@@ -21,7 +21,6 @@ describe('Registration form test', () => {
         registrationForm.verifySuccessfulRegistration()
     });
 
-    
 
     it('Add a car and fuel expenses', () => {
         garagePage.clickAddCarBtn()

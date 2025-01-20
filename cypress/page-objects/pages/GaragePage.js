@@ -9,31 +9,31 @@ class GaragePage {
         carMileage: () => cy.get('[formcontrolname="miles"]')
     }
 
-    clickAddCarBtn(){
+    clickAddCarBtn() {
         this.elements.addCarBtn().click()
     }
 
-    selectBrand(brand){
+    selectBrand(brand) {
         this.elements.brandInput().select(brand)
     }
 
-    selectModel(model){
+    selectModel(model) {
         this.elements.modelInput().select(model)
     }
-    inputMileage(mileage){
+    inputMileage(mileage) {
         this.elements.mileageInput().type(mileage)
     }
 
-    clickAddBtn(){
+    clickAddBtn() {
         this.elements.addBtn().click()
     }
 
-    verifyAddedCarBrand(brand){
+    verifyAddedCarBrand(brand) {
         this.elements.carBrand().contains(brand)
-        
+
     }
 
-    verifyAddedCarMileage(mileage){
+    verifyAddedCarMileage(mileage) {
         this.elements.carMileage().should('have.value', `${mileage}`)
 
     }

@@ -1,5 +1,5 @@
 class ExpensesPage {
-    elements = {    
+    elements = {
         addFuelExpenseBtn: () => cy.get('.car_add-expense.btn'),
         mileageInput: () => cy.get('#addExpenseMileage'),
         numberOfLitersInput: () => cy.get('#addExpenseLiters'),
@@ -45,13 +45,11 @@ class ExpensesPage {
             .should('have.text', `${liters}L`);
     }
 
-
-
     verifyTotalCost(cost) {
         this.elements.expensesTableRow()
-            .first() // Assuming it's the first row
+            .first()
             .find('td')
-            .eq(3) // Total Cost is in the fourth column (index 3)
+            .eq(3)
             .should('have.text', `${cost}.00 USD`);
     }
 
