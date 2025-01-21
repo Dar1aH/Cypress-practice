@@ -3,7 +3,7 @@ import RegistrationForm from "../../page-objects/forms/RegistrationForm";
 import GaragePage from "../../page-objects/pages/GaragePage";
 import ExpensesPage from "../../page-objects/pages/ExpensesPage";
 
-describe('Registration form test', () => {
+describe('Adding car and fuel expenses test', () => {
     const homeSection = new HomeSection()
     const registrationForm = new RegistrationForm()
     const garagePage = new GaragePage()
