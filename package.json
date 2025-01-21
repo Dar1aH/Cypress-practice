@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test:qauto": "cypress run --config-file cypress.config.js",
+    "test:qauto2": "cypress run --config-file cypress.test.config.js"
   },
   "keywords": [],
   "author": "",

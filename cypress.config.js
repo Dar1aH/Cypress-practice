@@ -16,11 +16,11 @@ module.exports = defineConfig({
     viewportWidth: 1920,
     video: false,
     chromeWebSecurity: false,
-    screenshotOnRunFailure: false,
+    screenshotOnRunFailure: true,
     env: {
       MAIN_USER_EMAIL: "dariaH@gmail.com",
       MAIN_USER_PASSWORD: "ZSgeVQhuU3qkvlG",
     }
   },
 
-});
+})
