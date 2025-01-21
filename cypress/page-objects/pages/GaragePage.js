@@ -1,3 +1,6 @@
+import ApiHelper from "../helpers/ApiHelper"
+const apiHelper = new ApiHelper()
+
 class GaragePage {
     elements = {
         addCarBtn: () => cy.get('.btn-primary:eq(0)'),
@@ -36,6 +39,41 @@ class GaragePage {
     verifyAddedCarMileage(mileage) {
         this.elements.carMileage().should('have.value', `${mileage}`)
 
+    }
+ 
+    addCar(brand, model, mileage) {
+        cy.intercept('POST', 'https://qauto.forstudy.space/api/cars').as('addCar');
+        this.elements.addCarBtn().click();
+        this.elements.brandInput().select(brand);
+        this.elements.modelInput().select(model);
+        this.elements.mileageInput().type(mileage);
+        this.elements.addBtn().click();
+    }
+
+    verifyAddedCar(brand, mileage) {
+        this.elements.carBrand().contains(brand)
+        this.elements.carMileage().should('have.value', `${mileage}`)
+    
+    }
+    verifyAddedCarStatus() {
+        cy.wait('@addCar').then((data) => {
+            expect(data.response.statusCode).to.eq(201);
+            const carId = data.response.body.data.id;
+            cy.log(`Car ID: ${carId}`);
+            expect(carId).to.exist;
+            this.addedCarId = carId; 
+        });
+    }
+
+    verifyAddedCarInList(carData) {
+        apiHelper.getCars().then((cars) => {
+            const addedCar = cars.find(car => car.id === this.addedCarId);
+            cy.log(`Added car: ${addedCar}`);
+            expect(addedCar).to.exist;
+            expect(addedCar.brand).to.eq(carData.brand);
+            expect(addedCar.model).to.eq(carData.model);
+            expect(addedCar.mileage).to.eq(carData.mileage)
+        });
     }
 }
 

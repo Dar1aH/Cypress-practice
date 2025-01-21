@@ -44,6 +44,29 @@ Cypress.Commands.add('login', (username, password) => {
   
     return originalFn(element, text, options);
   });
+
+  Cypress.Commands.add('createExpense', (expenseData, carId) => {
+    cy.request({
+        method: 'POST',
+        url: 'https://qauto.forstudy.space/api/expenses',
+        body: {
+            mileage: expenseData.mileage,
+            liters: expenseData.liters,
+            totalCost: expenseData.totalCost,
+            carId: carId
+        }
+    }).then((response) => {
+        expect(response.status).to.eq(201);
+        expect(response.body.data).to.include.keys('id', 'carId', 'mileage', 'liters', 'totalCost');
+        expect(response.body.data.mileage).to.eq(expenseData.mileage);
+        expect(response.body.data.liters).to.eq(expenseData.liters);
+        expect(response.body.data.totalCost).to.eq(expenseData.totalCost);
+
+        // Return the created expense data
+        return response.body.data;
+    });
+});
+
   
 
   
