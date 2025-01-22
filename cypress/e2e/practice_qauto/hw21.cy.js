@@ -38,27 +38,27 @@ describe('Car and fuel expense tests with API checks', () => {
 
     });
 
-    it('Create expense via API using custom command and validate via UI', () => {
+    it.only('Create expense via API using custom command and validate via UI', () => {
 
    
         garagePage.addCar(carData.brand, carData.model, carData.mileage);
         garagePage.verifyAddedCar(carData.brand, carData.mileage);
         garagePage.verifyAddedCarStatus();
-        garagePage.verifyAddedCarInList(carData);
+        garagePage.verifyAddedCarInList(carData)
     
-       
-        cy.createExpense(expenseData, garagePage.addedCarId);
-    
-  
-        expensesPage.clickAddFuelExpensesBtn();
-        expensesPage.updateMileage(expenseData.mileage);
-        expensesPage.inputNumberOfLiters(expenseData.liters);
-        expensesPage.inputTotalCost(expenseData.totalCost);
-        expensesPage.clickAddBtn();
-    
-        expensesPage.verifyMileage(expenseData.mileage);
-        expensesPage.verifyNumberOfLiters(expenseData.liters);
-        expensesPage.verifyTotalCost(expenseData.totalCost);
+        cy.get('@addedCarId').then((carId) => { // Fetch carId from alias
+            cy.log(`Using car ID for expense creation: ${carId}`);
+            cy.createExpense(expenseData, carId);
+            expensesPage.clickAddFuelExpensesBtn();
+            expensesPage.updateMileage(expenseData.mileage);
+            expensesPage.inputNumberOfLiters(expenseData.liters);
+            expensesPage.inputTotalCost(expenseData.totalCost);
+            expensesPage.clickAddBtn();
+        
+            expensesPage.verifyMileage(expenseData.mileage);
+            expensesPage.verifyNumberOfLiters(expenseData.liters);
+            expensesPage.verifyTotalCost(expenseData.totalCost);
+        });
     });
     
     

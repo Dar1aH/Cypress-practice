@@ -55,6 +55,7 @@ class GaragePage {
         this.elements.carMileage().should('have.value', `${mileage}`)
     
     }
+     /*
     verifyAddedCarStatus() {
         cy.wait('@addCar').then((data) => {
             expect(data.response.statusCode).to.eq(201);
@@ -75,6 +76,33 @@ class GaragePage {
             expect(addedCar.mileage).to.eq(carData.mileage)
         });
     }
+        */
+
+    verifyAddedCarStatus() {
+        cy.wait('@addCar').then((data) => {
+            expect(data.response.statusCode).to.eq(201);
+            const carId = data.response.body.data.id;
+            cy.log(`Car ID: ${carId}`);
+            expect(carId).to.exist;
+            cy.wrap(carId).as('addedCarId'); // Store carId as an alias
+        });
+    }
+    
+    verifyAddedCarInList(carData) {
+        cy.log(`Fetching cars to validate added car...`);
+        cy.get('@addedCarId').then((addedCarId) => { // Access the alias
+            apiHelper.getCars().then((cars) => {
+                cy.log(`Cars from API: ${JSON.stringify(cars, null, 2)}`);
+                const addedCar = cars.find(car => car.id === addedCarId);
+                cy.log(`Added car: ${JSON.stringify(addedCar, null, 2)}`);
+                expect(addedCar).to.exist;
+                expect(addedCar.brand).to.eq(carData.brand);
+                expect(addedCar.model).to.eq(carData.model);
+                expect(addedCar.mileage).to.eq(carData.mileage);
+            });
+        });
+    }
+    
 }
 
 export default GaragePage

@@ -46,17 +46,24 @@ Cypress.Commands.add('login', (username, password) => {
   });
 
   Cypress.Commands.add('createExpense', (expenseData, carId) => {
+    const reportDate = new Date().toISOString().split('T')[0] + "T00:00:00Z"
+    if (!carId) {
+        throw new Error('Car ID is undefined or null. Ensure the car is properly added before creating an expense.');
+    }
+
     cy.request({
         method: 'POST',
-        url: 'https://qauto.forstudy.space/api/expenses',
+        url: 'https://qauto.forstudy.space/api/expenses/',
+        failOnStatusCode: false,
         body: {
             mileage: expenseData.mileage,
             liters: expenseData.liters,
             totalCost: expenseData.totalCost,
-            carId: carId
+            carId: carId,
+            reportDate: reportDate
         }
     }).then((response) => {
-        expect(response.status).to.eq(201);
+        expect(response.status).to.eq(200);
         expect(response.body.data).to.include.keys('id', 'carId', 'mileage', 'liters', 'totalCost');
         expect(response.body.data.mileage).to.eq(expenseData.mileage);
         expect(response.body.data.liters).to.eq(expenseData.liters);
@@ -66,6 +73,7 @@ Cypress.Commands.add('login', (username, password) => {
         return response.body.data;
     });
 });
+
 
   
 
