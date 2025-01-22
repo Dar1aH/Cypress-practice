@@ -103,9 +103,18 @@ class RegistrationForm {
         this.elements.registerBtn().click()
     }
 
-    verifySuccessfulRegistration(){
+    verifySuccessfulRegistration() {
         this.elements.headerGarage().should('have.text', 'Garage');
         cy.url().should('contain', '/garage');
+    }
+
+    fillRegistrationForm() {
+        this.elements.nameInputField().type('Daria', { sensitive: true })
+        this.elements.lastNameInputField().type('Herasymenko', { sensitive: true })
+        const uniqueEmail = `testuser+${Date.now()}@example.com`
+        this.elements.emailInputField().type(uniqueEmail)
+        this.elements.passwordInputField().type('9Fasdfggg', { sensitive: true })
+        this.elements.reEnterPasswordField().type('9Fasdfggg', { sensitive: true })
     }
 
 }
